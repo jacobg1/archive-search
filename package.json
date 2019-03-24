@@ -2,10 +2,11 @@
   "name": "archive-search-lib",
   "version": "1.0.0",
   "description": "search helper for archive.orgs api",
-  "main": "Search.js",
+  "main": "index.js",
   "scripts": {
     "test": "test",
-		"start": "node Search.js"
+    "start": "webpack --mode=development --watch",
+    "build": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,14 @@
   "bugs": {
     "url": "https://github.com/jacobg1/archive-search-lib/issues"
   },
-  "homepage": "https://github.com/jacobg1/archive-search-lib#readme"
+  "homepage": "https://github.com/jacobg1/archive-search-lib#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  }
 }
