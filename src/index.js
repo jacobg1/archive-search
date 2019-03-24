@@ -1,3 +1,3 @@
-import { hello } from './lib/Search'
+var hello = require('./lib/Search')
 
 hello()
