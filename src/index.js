@@ -1,1 +1,3 @@
-console.log('testing')
+import { hello } from './lib/Search'
+
+hello()
