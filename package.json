@@ -6,7 +6,8 @@
   "scripts": {
     "test": "test",
     "start": "webpack --mode=development --watch",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "dev:node": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,10 +24,10 @@
   "homepage": "https://github.com/jacobg1/archive-search-lib#readme",
   "devDependencies": {
     "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
     "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
     "babel-loader": "^8.0.5",
-    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.18.10",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
   }
