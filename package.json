@@ -4,7 +4,8 @@
   "description": "search helper for archive.orgs api",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "mocha ./tests/*.js || exit 0",
+		"test:watch": "mocha --watch ./tests/*.js",
     "start": "webpack --mode=development --watch",
     "build": "webpack --mode=production",
     "dev:node": "nodemon src/index.js"
@@ -27,6 +28,8 @@
     "@babel/preset-env": "^7.4.2",
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.0.5",
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
