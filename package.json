@@ -1,0 +1,23 @@
+{
+  "name": "archive-search-lib",
+  "version": "1.0.0",
+  "description": "search helper for archive.orgs api",
+  "main": "Search.js",
+  "scripts": {
+    "test": "test",
+		"start": "node Search.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacobg1/archive-search-lib.git"
+  },
+  "keywords": [
+    "archive.org"
+  ],
+  "author": "Jacob Greenwald",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacobg1/archive-search-lib/issues"
+  },
+  "homepage": "https://github.com/jacobg1/archive-search-lib#readme"
+}
