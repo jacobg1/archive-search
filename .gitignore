@@ -1,6 +1,9 @@
 # Dependency directories
 node_modules/
 
+# configs
+.eslintrc
+
 # dist folder
 dist/
 index.html
