@@ -1,3 +1,5 @@
-var hello = require('./lib/Search')
+var Hello = require('./lib/Search')
 
-hello()
+const myClass = new Hello
+
+console.log(myClass.sayHello())

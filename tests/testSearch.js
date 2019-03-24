@@ -4,10 +4,11 @@ const { expect } = require('chai')
 const { describe } = mocha
 const { it } = mocha
 
-const hello =  require('../src/lib/Search')
+const Hello =  require('../src/lib/Search')
+const helloClass = new Hello
 
-describe('hello()', () => {
+describe('sayHello()', () => {
 	it('return a string', () => {
-		expect(hello()).to.be.a('string')
+		expect(helloClass.sayHello()).to.be.a('string')
 	})
 })	

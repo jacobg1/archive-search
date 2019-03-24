@@ -1,4 +1,9 @@
-function hello() {
-	console.log("hellosdssds world");
+class Hello {
+	constructor () {
+		this.name = 'world'
+	}
+	sayHello () {
+		return `hello ${this.name}`
+	}
 }
-module.exports = hello
+module.exports = Hello
