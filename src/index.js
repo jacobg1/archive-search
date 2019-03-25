@@ -1,5 +1,5 @@
-var Hello = require('./lib/Search')
+var Search = require('./lib/Search')
 
-const myClass = new Hello
+const myClass = new Search
 
-console.log(myClass.sayHello())
+console.log(myClass.searchByArtist('test'))
