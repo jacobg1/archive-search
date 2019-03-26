@@ -1,7 +1,8 @@
 const isString = require('../helpers/checkType')
 const https = require('https');
 // const request = require('request');
-
+const superagent = require('superagent');
+const jsonp = require('superagent-jsonp');
 class Search {
 
 	/**
@@ -29,21 +30,14 @@ class Search {
    * @param {string} url - The search url to make GET request with.
   */
 	makeSearch(constructUrlFromParams) {
-		// var options = {
-		// 	url: constructUrlFromParams,
-		// 	headers: {
-		// 		'User-Agent': 'request'
-		// 	}
-		// };
-
-		// function callback(error, response, body) {
-		// 	if (!error && response.statusCode == 200) {
-		// 		var info = JSON.parse(body);
-		// 		console.log(info);
-		// 	}
-		// }
-
-		// request(options, callback);
+		superagent
+			.get(constructUrlFromParams).use(jsonp({
+				timeout: 3000,
+			})).end((err, response) => {
+				// response => {}
+				console.log(response)
+				// err => new Error('404 NotFound')
+			});
 	}
 	/**
  	 * search archive.org by artist.
