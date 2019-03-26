@@ -1,6 +1,6 @@
 const isString = require('../helpers/checkType')
 const https = require('https');
-const request = require('request');
+// const request = require('request');
 
 class Search {
 
@@ -29,21 +29,21 @@ class Search {
    * @param {string} url - The search url to make GET request with.
   */
 	makeSearch(constructUrlFromParams) {
-		var options = {
-			url: constructUrlFromParams,
-			headers: {
-				'User-Agent': 'request'
-			}
-		};
+		// var options = {
+		// 	url: constructUrlFromParams,
+		// 	headers: {
+		// 		'User-Agent': 'request'
+		// 	}
+		// };
 
-		function callback(error, response, body) {
-			if (!error && response.statusCode == 200) {
-				var info = JSON.parse(body);
-				console.log(info);
-			}
-		}
+		// function callback(error, response, body) {
+		// 	if (!error && response.statusCode == 200) {
+		// 		var info = JSON.parse(body);
+		// 		console.log(info);
+		// 	}
+		// }
 
-		request(options, callback);
+		// request(options, callback);
 	}
 	/**
  	 * search archive.org by artist.
