@@ -9,13 +9,14 @@
     "start": "webpack --mode=development",
     "build": "webpack --mode=production",
     "browser": "webpack --mode=development --config webpack.config.browser.js",
-    "node": "webpack --mode=development --config webpack.config.node.js",
-    "node:dev": "nodemon dist/search.node.js",
-    "dev": "concurrently --kill-others \"npm start\" \"npm run test:watch\" \"npm run node\""
+    "browser:dev": "webpack --mode=development --watch --config webpack.config.browser.js",
+    "node": "node src/search.node.js",
+    "node:dev": "webpack --mode=development --watch --config webpack.config.node.js",
+    "dev": "concurrently --kill-others \"npm run browser:dev\" \"npm run node:dev\""
   },
-	"browser": {
-		"./dist/search.node.js": "./dist/search.js"
-	},
+  "browser": {
+    "./dist/search.node.js": "./dist/search.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jacobg1/archive-search-lib.git"
@@ -36,7 +37,6 @@
     "babel-loader": "^8.0.5",
     "chai": "^4.2.0",
     "concurrently": "^4.1.0",
-    "json-loader": "^0.5.7",
     "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
     "webpack": "^4.29.6",
@@ -44,6 +44,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "request": "^2.88.0"
+    "superagent": "^4.1.0",
+    "superagent-jsonp": "^0.2.1"
   }
 }
