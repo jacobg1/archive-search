@@ -13,6 +13,9 @@
     "node:dev": "nodemon dist/search.node.js",
     "dev": "concurrently --kill-others \"npm start\" \"npm run test:watch\" \"npm run node\""
   },
+	"browser": {
+		"./dist/search.node.js": "./dist/search.js"
+	},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jacobg1/archive-search-lib.git"
