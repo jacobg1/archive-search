@@ -1,7 +1,9 @@
 const isString = require('../helpers/checkType')
+const https = require('https');
+const request = require('request');
 
 class Search {
-	
+
 	/**
 	 * Class with methods to search archive.org's api
 	 * @constructor
@@ -9,6 +11,7 @@ class Search {
 	constructor () {
 		this.metaSearchBaseUrl = 'https://archive.org/advancedsearch.php'
 		this.metaSearchDefaults = '&fl%5B%5D=identifier&fl%5B%5D=mediatype&fl%5B%5D=title&&fl%5B%5D=description&fl%5B%5D=year&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=20000&page=&output=json'
+		console.log(https)
 	}
 
 	/**
@@ -20,7 +23,28 @@ class Search {
 		const searchUrl = this.metaSearchBaseUrl + '?q=' + searchType + '%3A' + searchTerm + this.metaSearchDefaults
 		return searchUrl
 	}
+	/**
+ 	 * make http GET request based on passed in url.
+	 * @async
+   * @param {string} url - The search url to make GET request with.
+  */
+	makeSearch(constructUrlFromParams) {
+		var options = {
+			url: constructUrlFromParams,
+			headers: {
+				'User-Agent': 'request'
+			}
+		};
 
+		function callback(error, response, body) {
+			if (!error && response.statusCode == 200) {
+				var info = JSON.parse(body);
+				console.log(info);
+			}
+		}
+
+		request(options, callback);
+	}
 	/**
  	 * search archive.org by artist.
  	 * @param {string} searchTerm - The search term.
@@ -33,6 +57,7 @@ class Search {
 		// finsish constructing url
 		const searchType = 'creator'
 		const constructUrlFromParams = this.constructMetaSearchUrl(searchType, searchTerm)
+		this.makeSearch(constructUrlFromParams)
 		return constructUrlFromParams
 	}
 }
