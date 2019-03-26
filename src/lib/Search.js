@@ -1,8 +1,7 @@
 const isString = require('../helpers/checkType')
-const https = require('https');
-// const request = require('request');
-const superagent = require('superagent');
-const jsonp = require('superagent-jsonp');
+const superagent = require('superagent')
+const jsonp = require('superagent-jsonp')
+
 class Search {
 
 	/**
@@ -11,8 +10,7 @@ class Search {
 	 */
 	constructor () {
 		this.metaSearchBaseUrl = 'https://archive.org/advancedsearch.php'
-		this.metaSearchDefaults = '&fl%5B%5D=identifier&fl%5B%5D=mediatype&fl%5B%5D=title&&fl%5B%5D=description&fl%5B%5D=year&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=20000&page=&output=json'
-		console.log(https)
+		this.metaSearchDefaults = '&fl%5B%5D=identifier&fl%5B%5D=mediatype&fl%5B%5D=title&&fl%5B%5D=description&fl%5B%5D=year&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=20000&page=&output=json&callback=json'
 	}
 
 	/**
@@ -30,13 +28,10 @@ class Search {
    * @param {string} url - The search url to make GET request with.
   */
 	makeSearch(constructUrlFromParams) {
-		superagent
-			.get(constructUrlFromParams).use(jsonp({
-				timeout: 3000,
-			})).end((err, response) => {
-				// response => {}
-				console.log(response)
-				// err => new Error('404 NotFound')
+		superagent.get(constructUrlFromParams)
+			.use(jsonp({ callbackParam: 'jsonp', callbackName: 'json', timeout: 10000 }))
+			.end(function (err, res) {
+				console.info(err, res)
 			});
 	}
 	/**
