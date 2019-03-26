@@ -9,8 +9,8 @@ class Search {
 	 * @constructor
 	 */
 	constructor () {
-		this.metaSearchBaseUrl = 'https://archive.org/advancedsearch.php'
-		this.metaSearchDefaults = '&fl%5B%5D=identifier&fl%5B%5D=mediatype&fl%5B%5D=title&&fl%5B%5D=description&fl%5B%5D=year&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=20000&page=&output=json&callback=json'
+		this.metaSearchBaseUrl = 'https://arcrg/advancedsearch.php'
+		this.metaSearchDefaults = '&fl%5B%5D=identifier&fl%5B%5D=mediatype&fl%5B%5D=title&&fl%5B%5D=description&fl%5B%5D=year&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=20000&page=&output=json'
 	}
 
 	/**
@@ -28,11 +28,19 @@ class Search {
    * @param {string} url - The search url to make GET request with.
   */
 	makeSearch(constructUrlFromParams) {
-		superagent.get(constructUrlFromParams)
-			.use(jsonp({ callbackParam: 'jsonp', callbackName: 'json', timeout: 10000 }))
-			.end(function (err, res) {
-				console.info(err, res)
-			});
+		superagent
+			.get(constructUrlFromParams).use(jsonp({
+				timeout: 15000,
+			})).end((err, response) => {
+				if(!response) {
+					throw new Error('Empty response')
+				}
+				if(err) {
+					throw new Error(err)
+				}
+				console.log(response)
+				// err => new Error('404 NotFound')
+			})
 	}
 	/**
  	 * search archive.org by artist.
