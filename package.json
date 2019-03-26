@@ -6,10 +6,12 @@
   "scripts": {
     "test": "mocha ./tests/*.js || exit 0",
     "test:watch": "mocha --watch ./tests/*.js",
-    "start": "webpack --mode=development --watch",
+    "start": "webpack --mode=development",
     "build": "webpack --mode=production",
-		"node": "nodemon dist/search.js",
-		"dev": "concurrently --kill-others \"npm start\" \"npm run test:watch\" \"npm run node\""
+    "browser": "webpack --mode=development --config webpack.config.browser.js",
+    "node": "webpack --mode=development --config webpack.config.node.js",
+    "node:dev": "nodemon dist/search.node.js",
+    "dev": "concurrently --kill-others \"npm start\" \"npm run test:watch\" \"npm run node\""
   },
   "repository": {
     "type": "git",
@@ -31,9 +33,14 @@
     "babel-loader": "^8.0.5",
     "chai": "^4.2.0",
     "concurrently": "^4.1.0",
+    "json-loader": "^0.5.7",
     "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "webpack-cli": "^3.3.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "request": "^2.88.0"
   }
 }
