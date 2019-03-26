@@ -5,6 +5,7 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'search.js',
 	},
+	devtool: 'inline-source-map',
 	module: {
 		rules: [
 			{
