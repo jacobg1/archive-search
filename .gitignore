@@ -3,6 +3,9 @@ node_modules/
 
 # configs
 .eslintrc
+.eslintignore
+.editorconfig
+.vscode/
 
 # dist folder
 dist/
