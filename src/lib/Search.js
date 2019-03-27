@@ -1,5 +1,7 @@
-const superagent = require('superagent')
-const jsonp = require('superagent-jsonp')
+// const superagent = require('superagent')
+// const jsonp = require('superagent-jsonp')
+const jsonp = require('jsonp')
+
 const isString = require('../helpers/checkType')
 
 class Search {
@@ -10,6 +12,7 @@ class Search {
   constructor() {
     this.metaSearchBaseUrl = 'https://archive.org/advancedsearch.php'
     this.metaSearchDefaults = '&fl%5B%5D=identifier&fl%5B%5D=mediatype&fl%5B%5D=title&&fl%5B%5D=description&fl%5B%5D=year&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=20000&page=&output=json'
+    this.results = []
   }
 
   /**
@@ -28,27 +31,38 @@ class Search {
    * @param {string} url - The search url to make GET request with.
   */
   static makeSearch(constructUrlFromParams) {
-    superagent
-      .get(constructUrlFromParams).use(jsonp({
-        timeout: 15000,
-      })).end((err, response) => {
-        if (!response) {
-          return new Error('Empty response')
-        }
+    // function onresponse(err, response) {
+    //   if (!response) {
+    //     return new Error('Empty response')
+    //   }
+    //   if (err) {
+    //     throw new Error(err)
+    //   }
+    //   const { body } = response
+    //   const { numFound } = body.response
+    //   const { docs } = body.response
+    //   if (numFound === 0) {
+    //     throw new Error('no results, please update query params')
+    //   }
+    //   // eslint-disable-next-line no-console
+    //   // console.log(docs)
+    //   return docs
+    // }
+    // superagent.get(constructUrlFromParams).use(jsonp({
+    //   timeout: 15000,
+    // })).then((err, response) => {
+    //   console.log(response)
+    //   return response
+    // })
+    return new Promise((resolve, reject) => {
+      jsonp(constructUrlFromParams, null, (err, data) => {
         if (err) {
-          throw new Error(err)
+          reject(err)
+        } else {
+          resolve(data)
         }
-        const { body } = response
-        const { numFound } = body.response
-        const { docs } = body.response
-        if (numFound === 0) {
-          throw new Error('no results, please update query params')
-        }
-        // eslint-disable-next-line no-console
-        console.log(docs)
-        return docs
-        // err => new Error('404 NotFound')
       })
+    })
   }
 
   /**
@@ -63,8 +77,10 @@ class Search {
     // finsish constructing url
     const searchType = 'creator'
     const constructUrlFromParams = this.constructMetaSearchUrl(searchType, searchTerm)
-    this.constructor.makeSearch(constructUrlFromParams)
-    return constructUrlFromParams
+    console.log(constructUrlFromParams)
+    const test = this.constructor.makeSearch(constructUrlFromParams)
+    return test.then(result => result)
+    // return constructUrlFromParams
   }
 }
 module.exports = Search
