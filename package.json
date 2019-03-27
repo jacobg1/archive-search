@@ -49,6 +49,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "jsonp": "^0.2.1",
     "superagent": "^4.1.0",
     "superagent-jsonp": "^0.2.1"
   }
