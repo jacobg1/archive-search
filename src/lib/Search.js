@@ -1,6 +1,7 @@
-// const superagent = require('superagent')
+const superagent = require('superagent')
 // const jsonp = require('superagent-jsonp')
-const jsonp = require('jsonp')
+// const jsonp = require('jsonp')
+const jsonp = require('superagent-jsonp')
 
 const isString = require('../helpers/checkType')
 
@@ -31,37 +32,27 @@ class Search {
    * @param {string} url - The search url to make GET request with.
   */
   static makeSearch(constructUrlFromParams) {
-    // function onresponse(err, response) {
-    //   if (!response) {
-    //     return new Error('Empty response')
-    //   }
-    //   if (err) {
-    //     throw new Error(err)
-    //   }
-    //   const { body } = response
-    //   const { numFound } = body.response
-    //   const { docs } = body.response
-    //   if (numFound === 0) {
-    //     throw new Error('no results, please update query params')
-    //   }
-    //   // eslint-disable-next-line no-console
-    //   // console.log(docs)
-    //   return docs
-    // }
-    // superagent.get(constructUrlFromParams).use(jsonp({
-    //   timeout: 15000,
-    // })).then((err, response) => {
-    //   console.log(response)
-    //   return response
-    // })
     return new Promise((resolve, reject) => {
-      jsonp(constructUrlFromParams, null, (err, data) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(data)
-        }
-      })
+      superagent
+        .get(constructUrlFromParams).use(jsonp({
+          timeout: 3000,
+        })).end((err, response) => {
+          // response => {}
+          if (!response) {
+            throw new Error('Null Response')
+          }
+          if (err) {
+            reject(err)
+          } else {
+            const { body } = response
+            const { numFound } = body.response
+            if (numFound === 0) {
+              throw new Error('no results, please update query params')
+            }
+            const { docs } = body.response
+            resolve(docs)
+          }
+        })
     })
   }
 
@@ -77,7 +68,6 @@ class Search {
     // finsish constructing url
     const searchType = 'creator'
     const constructUrlFromParams = this.constructMetaSearchUrl(searchType, searchTerm)
-    console.log(constructUrlFromParams)
     const test = this.constructor.makeSearch(constructUrlFromParams)
     return test.then(result => result)
     // return constructUrlFromParams
