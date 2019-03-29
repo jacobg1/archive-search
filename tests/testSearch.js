@@ -20,11 +20,13 @@ describe('Search', () => {
     })
   })
   describe('searchByArtist', () => {
-    it('return a string', () => {
-      expect(searchClass.searchByArtist('test')).to.be.a('string')
-    })
-    it('should include the url and url params', () => {
-      expect(searchClass.searchByArtist('test')).to.satisfy(string => ['test', 'creator', 'https://archive.org/advancedsearch.php'].every(bit => string.includes(bit)))
+    it('return an array of objects', () => {
+      const search = searchClass.searchByArtist('test')
+      search.then((result) => {
+        const myData = result
+        expect(myData).to.be.an('array')
+        myData.every(i => expect(i).to.be.an('object'))
+      })
     })
   })
 })
