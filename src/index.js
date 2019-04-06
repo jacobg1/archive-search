@@ -1,8 +1,16 @@
 const Search = require('./lib/Search')
 
-const myClass = new Search()
-
-const test = myClass.searchByArtist('test')
+const options = {
+  fields: [
+    'year',
+    'title',
+    'mediatype',
+  ],
+  max: 300,
+}
+const myClass = new Search(options)
+// myClass.setOptions(options)
+const test = myClass.searchByArtist('test', options)
 test.then((result) => {
   const myData = result
   console.log(myData)
