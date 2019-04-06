@@ -23,9 +23,8 @@ describe('Search', () => {
     it('return an array of objects', () => {
       const search = searchClass.searchByArtist('test')
       search.then((result) => {
-        const myData = result
-        expect(myData).to.be.an('array')
-        myData.every(i => expect(i).to.be.an('object'))
+        expect(result).to.be.an('array')
+        result.every(i => expect(i).to.be.an('object'))
       })
     })
   })
