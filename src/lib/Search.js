@@ -94,8 +94,8 @@ class Search {
     // finsish constructing url
     const searchType = 'creator'
     const constructUrlFromParams = this.constructMetaSearchUrl(searchType, searchTerm)
-    const search = this.constructor.makeSearch(constructUrlFromParams)
-    return search.then(result => result)
+    // const search = this.constructor.makeSearch(constructUrlFromParams)
+    return this.constructor.makeSearch(constructUrlFromParams)
     // return constructUrlFromParams
   }
 }
