@@ -63,5 +63,30 @@ describe('Search', () => {
     it('options argument should be an object', () => {
       expect(searchClass.setOptions.getCall(0).args[0]).to.be.an('object')
     })
+    it('options.fields should be an array', () => {
+      expect(searchClass.setOptions.getCall(0).args[0].fields).to.be.an('array')
+    })
+  })
+  describe('setSortBy', () => {
+    sinon.spy(Search, 'setSortBy')
+    const options = {
+      fields: [
+        'year',
+        'title',
+        'mediatype',
+        'language',
+        'date',
+        'downloads',
+      ],
+      max: 50,
+      sortBy: {
+        year: 'asc',
+        downloads: 'asc',
+      },
+    }
+    Search.setSortBy(options.sortBy)
+    it('should be called once', () => {
+      expect(Search.setSortBy.calledOnce).to.be.true
+    })
   })
 })
