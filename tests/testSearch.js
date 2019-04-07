@@ -40,4 +40,28 @@ describe('Search', () => {
       })
     })
   })
+  describe('setOptions', () => {
+    sinon.spy(searchClass, 'setOptions')
+    beforeEach(() => {
+      const options = {
+        fields: [
+          'year',
+          'title',
+          'mediatype',
+          'language',
+        ],
+        max: 50,
+      }
+      searchClass.setOptions(options)
+    })
+    it('should be called once', () => {
+      expect(searchClass.setOptions.calledOnce).to.be.true
+    })
+    it('should take in an argument representing api search options', () => {
+      expect(searchClass.setOptions.getCall(0).args[0]).to.not.be.false
+    })
+    it('options argument should be an object', () => {
+      expect(searchClass.setOptions.getCall(0).args[0]).to.be.an('object')
+    })
+  })
 })
