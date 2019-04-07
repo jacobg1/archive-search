@@ -11,8 +11,7 @@ class Search {
    * Class with methods to search archive.org's api
    * @constructor
    */
-  constructor(options) {
-    console.log(options)
+  constructor() {
     this.metaSearchBaseUrl = 'https://archive.org/advancedsearch.php'
     this.metaSearchDefaults = '&fl%5B%5D=identifier&fl%5B%5D=mediatype&fl%5B%5D=title&fl%5B%5D=description&fl%5B%5D=year&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=120&page=&output=json'
     console.log(decodeURI(this.metaSearchDefaults))
@@ -29,7 +28,7 @@ class Search {
     }
     const invalidOptionsError = 'Invalid syntax for options. Ex: {fields: [...fields], max: 100(optional)}'
     Object.keys(options).forEach((option) => {
-      if (option !== 'fields' && option !== 'max') {
+      if (option !== 'fields' && option !== 'max' && option !== 'sortBy') {
         throw new Error(invalidOptionsError)
       }
     })
@@ -41,9 +40,26 @@ class Search {
     options.fields.forEach((field) => {
       this.metaSearchDefaults += encodeURI(`&fl[]=${field}`)
     })
-    if (options.max) this.metaSearchDefaults += `&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=${options.max}&page=`
+    if (options.sortBy) {
+      this.metaSearchDefaults += this.constructor.setSortBy(options.sortBy)
+    }
+    if (options.max) this.metaSearchDefaults += `&rows=${options.max}&page=`
     this.metaSearchDefaults += '&output=json'
     // return this.metaSearchDefaults
+  }
+
+  /**
+   * set fields to sort results by.
+   * @static
+   * @param {object} sortBy - The fields to sort by and whether to sort asc or desc.
+  */
+  static setSortBy(sortBy) {
+    let sortUrl = ''
+    console.log(decodeURI('&sort%5B%5D=year+asc'))
+    Object.keys(sortBy).forEach((sort) => {
+      sortUrl += `&sort[]=${sort}+${sortBy[sort]}`
+    })
+    return encodeURI(sortUrl)
   }
 
   /**
@@ -96,7 +112,7 @@ class Search {
     const searchType = 'creator'
     const constructUrlFromParams = this.constructMetaSearchUrl(searchType, searchTerm)
     // const search = this.constructor.makeSearch(constructUrlFromParams)
-    console.log(constructUrlFromParams)
+    // console.log(constructUrlFromParams)
     return this.constructor.makeSearch(constructUrlFromParams)
     // return constructUrlFromParams
   }
