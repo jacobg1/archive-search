@@ -5,10 +5,17 @@ const options = {
     'year',
     'title',
     'mediatype',
+    'language',
+    'date',
+    'downloads',
   ],
-  max: 300,
+  max: 50,
+  sortBy: {
+    year: 'asc',
+    downloads: 'asc',
+  },
 }
-const myClass = new Search(options)
+const myClass = new Search()
 // myClass.setOptions(options)
 const test = myClass.searchByArtist('test', options)
 test.then((result) => {
