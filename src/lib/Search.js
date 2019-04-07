@@ -1,7 +1,4 @@
-/* eslint-disable no-console */
 const superagent = require('superagent')
-// const jsonp = require('superagent-jsonp')
-// const jsonp = require('jsonp')
 const jsonp = require('superagent-jsonp')
 
 const checkType = require('../helpers/checkType')
