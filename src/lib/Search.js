@@ -24,7 +24,7 @@ class Search {
    */
   setOptions(options) {
     if (!checkType.isObject(options)) {
-      throw new TypeError('setOptions() expected an Array')
+      throw new TypeError('setOptions() expected an Object')
     }
     const invalidOptionsError = 'Invalid syntax for options. Ex: {fields: [...fields], max: 100(optional)}'
     Object.keys(options).forEach((option) => {
