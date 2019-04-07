@@ -41,8 +41,9 @@ class Search {
     options.fields.forEach((field) => {
       this.metaSearchDefaults += encodeURI(`&fl[]=${field}`)
     })
-    if (options.max) this.metaSearchDefaults += `&rows=${options.max}&page=`
+    if (options.max) this.metaSearchDefaults += `&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=${options.max}&page=`
     this.metaSearchDefaults += '&output=json'
+    // return this.metaSearchDefaults
   }
 
   /**
@@ -95,6 +96,7 @@ class Search {
     const searchType = 'creator'
     const constructUrlFromParams = this.constructMetaSearchUrl(searchType, searchTerm)
     // const search = this.constructor.makeSearch(constructUrlFromParams)
+    console.log(constructUrlFromParams)
     return this.constructor.makeSearch(constructUrlFromParams)
     // return constructUrlFromParams
   }
