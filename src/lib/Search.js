@@ -36,7 +36,7 @@ class Search {
       }
     })
 
-    // throw error is options.fields is not an array
+    // throw error if options.fields is not an array
     if (!checkType.isArray(options.fields)) {
       throw new Error(invalidOptionsError)
     }
@@ -75,7 +75,7 @@ class Search {
   }
 
   /**
-   * build the first part of the meta search url with paramaters.
+   * build the meta search url from function paramaters.
    * @param {string} searchType - The type of search to make.
    * @param {string} searchTerm - The search term.
    */
@@ -107,7 +107,7 @@ class Search {
             const { numFound } = body.response
             const { docs } = body.response
 
-            // if number foind is zero throw error
+            // if number found is zero throw error
             if (numFound === 0) throw new Error('no results, please update query params')
 
             // resolve response
