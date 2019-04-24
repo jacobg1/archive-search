@@ -2,6 +2,7 @@ const superagent = require('superagent')
 const jsonp = require('superagent-jsonp')
 
 const checkType = require('../helpers/checkType')
+const defaultOptions = require('../helpers/defaultOptions')
 
 class Search {
   /**
@@ -13,7 +14,7 @@ class Search {
     this.metaSearchBaseUrl = 'https://archive.org/advancedsearch.php'
 
     // default search params
-    this.metaSearchDefaults = '&fl%5B%5D=identifier&fl%5B%5D=mediatype&fl%5B%5D=title&fl%5B%5D=description&fl%5B%5D=year&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=120&page=&output=json'
+    this.metaSearchDefaults = defaultOptions
   }
 
   /**
@@ -128,13 +129,24 @@ class Search {
     }
 
     // if user passes in options object, add options to search url
-    if (options.length !== 0) this.setOptions(options)
+    if (options.length !== 0) {
+      this.setOptions(options)
+    } else {
+      // otherwise reset url to defaults
+      this.metaSearchDefaults = defaultOptions
+    }
 
     // finsish constructing url
     const searchType = 'creator'
     const constructUrlFromParams = this.constructMetaSearchUrl(searchType, searchTerm)
-
+    // return Promise from makeSearch()
     return this.constructor.makeSearch(constructUrlFromParams)
   }
 }
-module.exports = Search
+
+const archiveSearch = new Search()
+
+module.exports = {
+  archiveSearch,
+  Search,
+}
