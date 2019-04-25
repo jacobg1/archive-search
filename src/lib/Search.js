@@ -10,34 +10,30 @@ class Search {
    * @constructor
    */
   constructor() {
-    // base url
     this.metaSearchBaseUrl = 'https://archive.org/advancedsearch.php'
-
-    // default search params
+    // url from helpers/defaultOptions.js TODO: something better?
     this.metaSearchDefaults = defaultOptions
+    this.searchType = 'creator'
   }
 
   /**
+   * check options object syntax,
    * override default search options and build new search url.
    * @param {array} options - Which fields to return from api.
    */
   setOptions(options) {
-    // check if passes in options is an object
     if (!checkType.isObject(options)) {
       throw new TypeError('setOptions() expected an Object')
     }
 
-    // error message to display if options syntax is invalid
     const invalidOptionsError = 'Invalid syntax for options. Ex: {fields: [...fields], max: 100(optional)}'
 
-    // loop through options and check keys, throw error if invalid syntax
     Object.keys(options).forEach((option) => {
-      if (option !== 'fields' && option !== 'max' && option !== 'sortBy') {
+      if (option !== 'fields' && option !== 'max' && option !== 'sortBy' && option !== 'searchBy') {
         throw new Error(invalidOptionsError)
       }
     })
 
-    // throw error if options.fields is not an array
     if (!checkType.isArray(options.fields)) {
       throw new Error(invalidOptionsError)
     }
@@ -45,18 +41,17 @@ class Search {
     // add identifier field as this is needed for second api call
     this.metaSearchDefaults = encodeURI('&fl[]=identifier')
 
-    // add each encoded option to search url
     options.fields.forEach((field) => {
       this.metaSearchDefaults += encodeURI(`&fl[]=${field}`)
     })
 
-    // if user specifes sortBy fields add them into url
     if (options.sortBy) {
       this.metaSearchDefaults += this.constructor.setSortBy(options.sortBy)
     }
 
-    // if user specifies max results to return add corresponding value to url
-    if (options.max) this.metaSearchDefaults += `&rows=${options.max}&page=`
+    if (options.max) {
+      this.metaSearchDefaults += `&rows=${options.max}&page=`
+    }
 
     // needed to get results back from api in JSON format
     this.metaSearchDefaults += '&output=json'
@@ -79,14 +74,14 @@ class Search {
    * build the meta search url from function paramaters.
    * @param {string} searchType - The type of search to make.
    * @param {string} searchTerm - The search term.
-   */
+  */
   constructMetaSearchUrl(searchType, searchTerm) {
-    const searchUrl = `${this.metaSearchBaseUrl}?q=${searchType}%3A${searchTerm}${this.metaSearchDefaults}`
-    return searchUrl
+    return `${this.metaSearchBaseUrl}?q=${searchType}%3A${searchTerm}${this.metaSearchDefaults}`
   }
 
   /**
    * make http GET request based on passed in url.
+   * returns a promise
    * @async @static
    * @param {string} url - The search url to make GET request with.
   */
@@ -103,7 +98,6 @@ class Search {
           if (!response) {
             throw new Error('Null Response', null)
           } else {
-            // destructure response
             const { body } = response
             const { numFound } = body.response
             const { docs } = body.response
@@ -111,7 +105,6 @@ class Search {
             // if number found is zero throw error
             if (numFound === 0) throw new Error('no results, please update query params')
 
-            // resolve response
             resolve(docs)
           }
         })
@@ -120,10 +113,10 @@ class Search {
 
   /**
    * search archive.org by artist.
-  * @param {string} searchTerm - The search term.
+   * adds search term to url and calls makeSearch function
+   * @param {string} searchTerm - The search term.
   */
   searchByArtist(searchTerm, options = []) {
-    // throw error if string is not passed into function
     if (!checkType.isString(searchTerm)) {
       throw new TypeError('searchByArtist() expected a string')
     }
@@ -136,9 +129,8 @@ class Search {
       this.metaSearchDefaults = defaultOptions
     }
 
-    // finsish constructing url
-    const searchType = 'creator'
-    const constructUrlFromParams = this.constructMetaSearchUrl(searchType, searchTerm)
+    const constructUrlFromParams = this.constructMetaSearchUrl(this.searchType, searchTerm)
+
     // return Promise from makeSearch()
     return this.constructor.makeSearch(constructUrlFromParams)
   }
