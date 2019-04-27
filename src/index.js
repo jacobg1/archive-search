@@ -1,6 +1,7 @@
-const Search = require('./lib/Search')
+const { archiveSearch } = require('./lib/Search')
 
 const options = {
+  searchBy: 'creator',
   fields: [
     'year',
     'title',
@@ -8,19 +9,26 @@ const options = {
     'language',
     'date',
     'downloads',
+    'creator',
   ],
-  max: 50,
+  max: 150,
   sortBy: {
     year: 'asc',
     downloads: 'asc',
   },
 }
-const myClass = new Search()
+
+// const myClass = new Search()
 // myClass.setOptions(options)
-const test = myClass.searchByArtist('test', options)
-test.then((result) => {
+// const test = archiveSearch.search('test', options)
+
+archiveSearch.search('french', options).then((result) => {
   const myData = result
   console.log(myData)
+})
+const testId = 'clevelandart-1923.277.8-the-miseries-of-war'
+archiveSearch.metaSearch(testId).then((result) => {
+  console.log(result)
 })
 
 // Search.makeSearch('https://archive.org/advancedsearch.php?q=creator%3Atest&fl%5B%5D=identifier&fl%5B%5D=mediatype&fl%5B%5D=title&&fl%5B%5D=description&fl%5B%5D=year&sort%5B%5D=year+asc&sort%5B%5D=&sort%5B%5D=&rows=20000&page=&output=json')
