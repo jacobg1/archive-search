@@ -7,13 +7,14 @@ const defaultOptions = require('../helpers/defaultOptions')
 class Search {
   /**
    * Class with methods to search archive.org's api
-   * @constructor
+   * @constructor - initializes defaults
    */
   constructor() {
     this.searchBaseUrl = 'https://archive.org/advancedsearch.php'
     // url from helpers/defaultOptions.js TODO: something better?
     this.searchDefaults = defaultOptions
     this.searchBy = 'creator'
+    this.metaBaseUrl = 'http://archive.org/metadata/'
   }
 
   /**
@@ -66,6 +67,7 @@ class Search {
    * set fields to sort results by.
    * @static
    * @param {object} sortBy - The fields to sort by and whether to sort asc or desc.
+   * @return {string} encoded url string
   */
   static setSortBy(sortBy) {
     let sortUrl = ''
@@ -79,6 +81,7 @@ class Search {
    * build the search url from function paramaters.
    * @param {string} searchBy - The type of search to make.
    * @param {string} searchTerm - The search term.
+   * @return {string} url string
   */
   constructSearchUrl(searchBy, searchTerm) {
     return `${this.searchBaseUrl}?q=${searchBy}%3A${searchTerm}${this.searchDefaults}`
@@ -89,6 +92,7 @@ class Search {
    * returns a promise
    * @async @static
    * @param {string} url - The search url to make GET request with.
+   * @return {Promise} returns api call as a Promise
   */
   static makeSearch(constructUrlFromParams) {
     return new Promise((resolve, reject) => {
@@ -120,6 +124,7 @@ class Search {
    * search archive.org by artist.
    * adds search term to url and calls makeSearch function
    * @param {string} searchTerm - The search term.
+   * @return {function} returns makeSearch function which returns a Promise
   */
   search(searchTerm, options = []) {
     if (!checkType.isString(searchTerm)) {
