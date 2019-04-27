@@ -11,7 +11,7 @@ class Search {
    */
   constructor() {
     this.searchBaseUrl = 'https://archive.org/advancedsearch.php'
-    // url from helpers/defaultOptions.js TODO: something better?
+    // url from helpers/defaultOptions.js
     this.searchDefaults = defaultOptions
     this.searchBy = 'creator'
     this.metaBaseUrl = 'https://archive.org/metadata/'
