@@ -43,20 +43,27 @@ class Search {
     // add identifier field as this is needed for second api call
     this.searchDefaults = encodeURI('&fl[]=identifier')
 
-    options.fields.forEach((field) => {
+    const {
+      fields,
+      sortBy,
+      max,
+      searchBy,
+    } = options
+
+    fields.forEach((field) => {
       this.searchDefaults += encodeURI(`&fl[]=${field}`)
     })
 
-    if (options.sortBy) {
-      this.searchDefaults += this.constructor.setSortBy(options.sortBy)
+    if (sortBy) {
+      this.searchDefaults += this.constructor.setSortBy(sortBy)
     }
 
-    if (options.max) {
-      this.searchDefaults += `&rows=${options.max}&page=`
+    if (max) {
+      this.searchDefaults += `&rows=${max}&page=`
     }
 
-    if (options.searchBy) {
-      this.searchBy = options.searchBy
+    if (searchBy) {
+      this.searchBy = searchBy
     }
 
     // needed to get results back from api in JSON format
@@ -138,8 +145,7 @@ class Search {
     }
 
     const constructUrlFromParams = this.constructSearchUrl(this.searchBy, searchTerm)
-    // eslint-disable-next-line no-console
-    console.log(constructUrlFromParams)
+
     // return Promise from makeSearch()
     return this.constructor.makeSearch(constructUrlFromParams)
   }
@@ -163,7 +169,6 @@ class Search {
           if (!response) {
             throw new Error('Null Response', null)
           } else {
-            // const { body } = response
             const {
               files,
               server,
@@ -185,7 +190,6 @@ class Search {
                 })
               }
             })
-
             resolve(responseObject)
           }
         })
