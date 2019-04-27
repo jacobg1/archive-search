@@ -107,9 +107,7 @@ class Search {
           if (!response) {
             throw new Error('Null Response', null)
           } else {
-            const { body } = response
-            const { numFound } = body.response
-            const { docs } = body.response
+            const { numFound, docs } = response.body.response
 
             // if number found is zero throw error
             if (numFound === 0) throw new Error('no results, please update query params')
@@ -165,8 +163,30 @@ class Search {
           if (!response) {
             throw new Error('Null Response', null)
           } else {
-            const { body } = response
-            resolve(body)
+            // const { body } = response
+            const {
+              files,
+              server,
+              dir,
+              metadata,
+            } = response.body
+
+            const responseObject = {
+              metadata,
+              files: [],
+            }
+
+            Object.keys(files).forEach((key) => {
+              const { format, name } = files[key]
+              if (format !== 'Metadata' && format !== 'JSON') {
+                responseObject.files.push({
+                  format,
+                  link: `https://${server}${dir}/${name}`,
+                })
+              }
+            })
+
+            resolve(responseObject)
           }
         })
     })
