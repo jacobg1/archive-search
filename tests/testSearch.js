@@ -10,29 +10,29 @@ const { archiveSearch } = require('../src/lib/Search')
 const { Search } = require('../src/lib/Search')
 
 describe('Search', () => {
-  describe('constructMetaSearchUrl', () => {
+  describe('constructSearchUrl', () => {
     it('should be called once', () => {
-      sinon.spy(archiveSearch, 'constructMetaSearchUrl')
-      archiveSearch.constructMetaSearchUrl('creator', 'test')
-      expect(archiveSearch.constructMetaSearchUrl.calledOnce).to.be.true
+      sinon.spy(archiveSearch, 'constructSearchUrl')
+      archiveSearch.constructSearchUrl('creator', 'test')
+      expect(archiveSearch.constructSearchUrl.calledOnce).to.be.true
     })
     it('return a string', () => {
-      const searchString = archiveSearch.constructMetaSearchUrl('creator', 'test')
+      const searchString = archiveSearch.constructSearchUrl('creator', 'test')
       expect(searchString).to.be.a('string')
     })
     it('string includes base url and function params', () => {
-      const searchString = archiveSearch.constructMetaSearchUrl('creator', 'test')
+      const searchString = archiveSearch.constructSearchUrl('creator', 'test')
       expect(searchString).to.satisfy(string => ['test', 'creator', 'https://archive.org/advancedsearch.php'].every(bit => string.includes(bit)))
     })
   })
-  describe('searchByArtist', () => {
+  describe('search', () => {
     it('should be called once', () => {
-      sinon.spy(archiveSearch, 'searchByArtist')
-      archiveSearch.searchByArtist('test')
-      expect(archiveSearch.searchByArtist.calledOnce).to.be.true
+      sinon.spy(archiveSearch, 'search')
+      archiveSearch.search('test')
+      expect(archiveSearch.search.calledOnce).to.be.true
     })
     it('return an array of objects', () => {
-      const search = archiveSearch.searchByArtist('test')
+      const search = archiveSearch.search('test')
       search.then((result) => {
         expect(result).to.be.an('array')
         result.every(i => expect(i).to.be.an('object'))
