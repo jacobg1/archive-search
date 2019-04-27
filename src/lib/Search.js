@@ -14,7 +14,7 @@ class Search {
     // url from helpers/defaultOptions.js TODO: something better?
     this.searchDefaults = defaultOptions
     this.searchBy = 'creator'
-    this.metaBaseUrl = 'http://archive.org/metadata/'
+    this.metaBaseUrl = 'https://archive.org/metadata/'
   }
 
   /**
@@ -91,7 +91,7 @@ class Search {
    * make http GET request based on passed in url.
    * returns a promise
    * @async @static
-   * @param {string} url - The search url to make GET request with.
+   * @param {string} constructUrlFromParams - The search url to make GET request with.
    * @return {Promise} returns api call as a Promise
   */
   static makeSearch(constructUrlFromParams) {
@@ -144,6 +144,32 @@ class Search {
     console.log(constructUrlFromParams)
     // return Promise from makeSearch()
     return this.constructor.makeSearch(constructUrlFromParams)
+  }
+
+  /**
+   * pulls data from a specific collection based on identifier.
+   * @param {string} identifier - The collection to pull data from.
+   * @return {Promise} returns a Promise
+  */
+  metaSearch(identifier) {
+    const url = `${this.metaBaseUrl}${identifier}`
+    return new Promise((resolve, reject) => {
+      superagent
+        .get(url).use(jsonp({
+          timeout: 3000,
+        })).end((err, response) => {
+          // handle errors
+          if (err) reject(err)
+
+          // throw error is response is empty
+          if (!response) {
+            throw new Error('Null Response', null)
+          } else {
+            const { body } = response
+            resolve(body)
+          }
+        })
+    })
   }
 }
 
