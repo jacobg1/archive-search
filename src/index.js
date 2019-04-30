@@ -13,7 +13,7 @@ const options = {
   ],
   max: 150,
   sortBy: {
-    year: 'asc',
+    year: 'desc',
     downloads: 'asc',
   },
 }
@@ -22,11 +22,11 @@ const options = {
 // myClass.setOptions(options)
 // const test = archiveSearch.search('test', options)
 
-archiveSearch.search('french', options).then((result) => {
+archiveSearch.search('grateful+dead', options).then((result) => {
   const myData = result
   console.log(myData)
 })
-const testId = 'clevelandart-1923.277.8-the-miseries-of-war'
+const testId = 'gd1967-xx-xx.sbd.studio.81259.flac16'
 archiveSearch.metaSearch(testId).then((result) => {
   console.log(result)
 })
