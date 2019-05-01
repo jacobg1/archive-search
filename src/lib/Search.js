@@ -110,17 +110,12 @@ class Search {
           // handle errors
           if (err) reject(err)
 
-          // throw error is response is empty
-          if (!response) {
-            throw new Error('Null Response', null)
-          } else {
-            const { numFound, docs } = response.body.response
+          const { numFound, docs } = response.body.response
 
-            // if number found is zero throw error
-            if (numFound === 0) throw new Error('no results, please update query params')
+          // if number found is zero throw error
+          if (numFound === 0) throw new Error('no results, please update query params')
 
-            resolve(docs)
-          }
+          resolve(docs)
         })
     })
   }
@@ -165,33 +160,30 @@ class Search {
           // handle errors
           if (err) reject(err)
 
-          // throw error is response is empty
-          if (!response) {
-            throw new Error('Null Response', null)
-          } else {
-            const {
-              files,
-              server,
-              dir,
-              metadata,
-            } = response.body
+          const {
+            files,
+            server,
+            dir,
+            metadata,
+            reviews,
+          } = response.body
 
-            const responseObject = {
-              metadata,
-              files: [],
-            }
-
-            Object.keys(files).forEach((key) => {
-              const { format, name } = files[key]
-              if (format !== 'Metadata' && format !== 'JSON') {
-                responseObject.files.push({
-                  format,
-                  link: `https://${server}${dir}/${name}`,
-                })
-              }
-            })
-            resolve(responseObject)
+          const responseObject = {
+            metadata,
+            reviews,
+            files: [],
           }
+
+          Object.keys(files).forEach((key) => {
+            const { format, name } = files[key]
+            if (format !== 'Metadata' && format !== 'JSON') {
+              responseObject.files.push({
+                format,
+                link: `https://${server}${dir}/${name}`,
+              })
+            }
+          })
+          resolve(responseObject)
         })
     })
   }
