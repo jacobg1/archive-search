@@ -101,9 +101,9 @@ describe('Search', () => {
         expect(result).to.be.an('object')
       })
     })
-    it('object should have keys: metadata, reviews, files', () => {
+    it('object should have keys: metadata, reviews, files', async () => {
       const objectProperties = ['metadata', 'reviews', 'files']
-      return archiveSearch.metaSearch(testId).then((result) => {
+      await archiveSearch.metaSearch(testId).then((result) => {
         Object.keys(result).forEach((item) => {
           expect(objectProperties).to.include(item)
         })
