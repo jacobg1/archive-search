@@ -88,4 +88,26 @@ describe('Search', () => {
       expect(Search.setSortBy.calledOnce).to.be.true
     })
   })
+  describe('metaSearch', () => {
+    const testId = 'gd1967-xx-xx.sbd.studio.81259.flac16'
+
+    it('should be called once', () => {
+      sinon.spy(archiveSearch, 'metaSearch')
+      archiveSearch.metaSearch(testId)
+      expect(archiveSearch.metaSearch.calledOnce).to.be.true
+    })
+    it('return an object', () => {
+      archiveSearch.metaSearch(testId).then((result) => {
+        expect(result).to.be.an('object')
+      })
+    })
+    it('object should have keys: metadata, reviews, files', () => {
+      const objectProperties = ['metadata', 'reviews', 'files']
+      return archiveSearch.metaSearch(testId).then((result) => {
+        Object.keys(result).forEach((item) => {
+          expect(objectProperties).to.include(item)
+        })
+      })
+    })
+  })
 })
