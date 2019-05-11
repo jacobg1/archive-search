@@ -4,13 +4,14 @@
   "description": "search helper for archive.orgs api",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./tests/*.js || exit 0",
-    "test:watch": "mocha --watch ./tests/*.js",
+    "test": "mocha ./tests/testSearch.js || exit 0",
+    "test:node": "mocha ./tests/testSearch.node.js || exit 0",
+    "test:watch": "mocha --watch ./tests/testSearch.js",
     "start": "webpack --mode=development",
     "build": "webpack --mode=production",
     "browser": "webpack --mode=development --config webpack.config.browser.js",
     "browser:dev": "webpack --mode=development --watch --config webpack.config.browser.js",
-    "node": "node dist/search.node.js",
+    "node": "node src/index.node.js",
     "node:dev": "webpack --mode=development --watch --config webpack.config.node.js",
     "dev": "concurrently --kill-others \"npm run browser:dev\" \"npm run node:dev\""
   },
