@@ -107,12 +107,10 @@ class Search {
           if (res.statusCode < 200 || res.statusCode >= 300) {
             reject(new Error(`statusCode=${res.statusCode}`))
           }
-          let body = ''
-          res.on('data', (d) => {
-            body += d
-          })
+          const body = []
+          res.on('data', d => body.push(d))
           res.on('end', () => {
-            const parsed = JSON.parse(body)
+            const parsed = JSON.parse(body.join(''))
             const { response, numFound } = parsed
 
             if (numFound === 0) throw new Error('no results, please update query params')
@@ -120,9 +118,7 @@ class Search {
             resolve(response)
           })
         })
-        .on('error', (e) => {
-          reject(e)
-        })
+        .on('error', e => reject(e))
     })
   }
 
@@ -164,12 +160,10 @@ class Search {
           if (res.statusCode < 200 || res.statusCode >= 300) {
             reject(new Error(`statusCode=${res.statusCode}`))
           }
-          let body = ''
-          res.on('data', (d) => {
-            body += d
-          })
+          const body = []
+          res.on('data', d => body.push(d))
           res.on('end', () => {
-            const parsed = JSON.parse(body)
+            const parsed = JSON.parse(body.join(''))
 
             const {
               files,
@@ -198,9 +192,7 @@ class Search {
             resolve(responseObject)
           })
         })
-        .on('error', (e) => {
-          reject(e)
-        })
+        .on('error', e => reject(e))
     })
   }
 }
