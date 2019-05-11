@@ -1,5 +1,3 @@
-const superagent = require('superagent')
-const jsonp = require('superagent-jsonp')
 const https = require('https')
 
 const checkType = require('../helpers/checkType')
@@ -104,23 +102,24 @@ class Search {
   */
   static makeSearch(constructUrlFromParams) {
     return new Promise((resolve, reject) => {
-      https.get(constructUrlFromParams, (res) => {
-        if (res.statusCode < 200 || res.statusCode >= 300) {
-          reject(new Error(`statusCode=${res.statusCode}`))
-        }
-        const body = []
-        res.on('data', (d) => {
-          body.push(d)
-        })
-        res.on('end', () => {
-          const parsed = JSON.parse(body)
-          const { response, numFound } = parsed
+      https
+        .get(constructUrlFromParams, (res) => {
+          if (res.statusCode < 200 || res.statusCode >= 300) {
+            reject(new Error(`statusCode=${res.statusCode}`))
+          }
+          let body = ''
+          res.on('data', (d) => {
+            body += d
+          })
+          res.on('end', () => {
+            const parsed = JSON.parse(body)
+            const { response, numFound } = parsed
 
-          if (numFound === 0) throw new Error('no results, please update query params')
+            if (numFound === 0) throw new Error('no results, please update query params')
 
-          resolve(response)
+            resolve(response)
+          })
         })
-      })
         .on('error', (e) => {
           reject(e)
         })
@@ -160,45 +159,55 @@ class Search {
   metaSearch(identifier) {
     const url = `${this.metaBaseUrl}${identifier}`
     return new Promise((resolve, reject) => {
-      superagent
-        .get(url).use(jsonp({
-          timeout: 3000,
-        })).end((err, response) => {
-          // handle errors
-          if (err) reject(err)
-
-          const {
-            files,
-            server,
-            dir,
-            metadata,
-            reviews,
-          } = response.body
-
-          const responseObject = {
-            metadata,
-            reviews,
-            files: [],
+      https
+        .get(url, (res) => {
+          if (res.statusCode < 200 || res.statusCode >= 300) {
+            reject(new Error(`statusCode=${res.statusCode}`))
           }
-
-          Object.keys(files).forEach((key) => {
-            const { format, name } = files[key]
-            if (format !== 'Metadata' && format !== 'JSON') {
-              responseObject.files.push({
-                format,
-                link: `https://${server}${dir}/${name}`,
-              })
-            }
+          let body = ''
+          res.on('data', (d) => {
+            body += d
           })
-          resolve(responseObject)
+          res.on('end', () => {
+            const parsed = JSON.parse(body)
+
+            const {
+              files,
+              server,
+              dir,
+              metadata,
+              reviews,
+            } = parsed
+
+            const responseObject = {
+              metadata,
+              reviews,
+              files: [],
+            }
+
+            Object.keys(files).forEach((key) => {
+              const { format, name } = files[key]
+              if (format !== 'Metadata' && format !== 'JSON') {
+                responseObject.files.push({
+                  format,
+                  link: `https://${server}${dir}/${name}`,
+                })
+              }
+            })
+
+            resolve(responseObject)
+          })
+        })
+        .on('error', (e) => {
+          reject(e)
         })
     })
   }
 }
 
-const archiveSearchs = new Search()
+const archiveSearch = new Search()
 
 module.exports = {
-  archiveSearchs,
+  archiveSearch,
   Search,
 }
