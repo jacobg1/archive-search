@@ -134,12 +134,7 @@ class Search {
     }
 
     // if user passes in options object, add options to search url
-    if (options.length !== 0) {
-      this.setOptions(options)
-    } else {
-      // otherwise reset url to defaults
-      this.searchDefaults = defaultOptions
-    }
+    if (options.length !== 0) this.setOptions(options)
 
     const constructUrlFromParams = this.constructSearchUrl(this.searchBy, searchTerm)
 
