@@ -1,0 +1,32 @@
+{
+  "name": "archive-search",
+  "version": "1.0.0",
+  "description": "wrapper for archive.org's api",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "browser": "./lib/Search.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacobg1/archive-search-lib.git"
+  },
+  "keywords": [
+    "archive.org",
+    "node",
+    "react"
+  ],
+  "author": "Jacob Greenwald",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacobg1/archive-search-lib/issues"
+  },
+  "homepage": "https://github.com/jacobg1/archive-search-lib#readme",
+  "dependencies": {
+    "superagent": "^5.0.5",
+    "superagent-jsonp": "^0.2.1"
+  }
+}
