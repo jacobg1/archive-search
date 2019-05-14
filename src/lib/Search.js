@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 const superagent = require('superagent')
-const jsonp = require('superagent-jsonp')
+// const jsonp = require('superagent-jsonp')
 
 const checkType = require('../helpers/checkType')
 const defaultOptions = require('../helpers/defaultOptions')
@@ -95,6 +96,29 @@ class Search {
   }
 
   /**
+   * add jsonp to api calls, appends script built from
+   * request url to the document head
+   * @param {string} url - The constcted search url.
+   * @param {Function} callback - Callback to be executed when data is return from api.
+  */
+  static jsonp(url, callback) {
+    // create a unique callback name for each request
+    const callbackName = `jsonp_callback_${Math.round(150000 * Math.random())}`
+    // add callback function to window object
+    window[callbackName] = (data) => {
+      callback(data)
+      // cleanup after callback fires
+      delete window[callbackName]
+      // eslint-disable-next-line no-use-before-define
+      document.body.removeChild(script)
+    }
+    // create script and append it to document
+    const script = document.createElement('script')
+    script.src = `${url + (url.indexOf('?') >= 0 ? '&' : '?')}callback=${callbackName}`
+    document.body.appendChild(script)
+  }
+
+  /**
    * make http GET request based on passed in url.
    * returns a promise
    * @async @static
@@ -102,21 +126,18 @@ class Search {
    * @return {Promise} returns api call as a Promise
   */
   static makeSearch(constructUrlFromParams) {
+    // eslint-disable-next-line no-unused-vars
     return new Promise((resolve, reject) => {
-      superagent
-        .get(constructUrlFromParams).use(jsonp({
-          timeout: 3000,
-        })).end((err, response) => {
-          // handle errors
-          if (err) reject(err)
+      this.jsonp(constructUrlFromParams, (data) => {
+        // if (err) reject(err)
 
-          const { numFound, docs } = response.body.response
+        const { numFound, docs } = data.response
 
-          // if number found is zero throw error
-          if (numFound === 0) throw new Error('no results, please update query params')
+        // if number found is zero throw error
+        if (numFound === 0) throw new Error('no results, please update query params')
 
-          resolve(docs)
-        })
+        resolve(docs)
+      })
     })
   }
 
