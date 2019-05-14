@@ -6,8 +6,8 @@ const { describe } = mocha
 const { it } = mocha
 const sinon = require('sinon')
 
-const { archiveSearch } = require('../src/lib/Search.node.js')
-const { Search } = require('../src/lib/Search.node.js')
+const { archiveSearch } = require('../src/index')
+const { Search } = require('../src/index')
 
 describe('Search', () => {
   describe('constructSearchUrl', () => {
