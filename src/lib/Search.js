@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const superagent = require('superagent')
-// const jsonp = require('superagent-jsonp')
+const jsonp = require('superagent-jsonp')
 
 const checkType = require('../helpers/checkType')
 const defaultOptions = require('../helpers/defaultOptions')
