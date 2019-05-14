@@ -1,6 +1,7 @@
 /* eslint no-unused-expressions: 0 */
 const mocha = require('mocha')
 const { expect } = require('chai')
+const jsdom = require('mocha-jsdom')
 
 const { describe } = mocha
 const { it } = mocha
@@ -26,6 +27,10 @@ describe('Search', () => {
     })
   })
   describe('search', () => {
+    jsdom({
+      url: 'http://localhost',
+    })
+
     it('should be called once', () => {
       sinon.spy(archiveSearch, 'search')
       archiveSearch.search('test')
