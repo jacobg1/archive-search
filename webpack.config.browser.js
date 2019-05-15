@@ -1,9 +1,9 @@
 const path = require('path');
 module.exports = {
-	entry: './src/index.js',
+	entry: './src/index.browser.js',
 	output: {
 		path: path.resolve(__dirname, './src/dist'),
-		filename: 'search.js',
+		filename: 'search-browser.js',
 	},
 	devtool: 'inline-source-map',
 	module: {
