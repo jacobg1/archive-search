@@ -1,6 +1,4 @@
 /* eslint-disable no-undef */
-const superagent = require('superagent')
-const jsonp = require('superagent-jsonp')
 
 const checkType = require('../helpers/checkType')
 const defaultOptions = require('../helpers/defaultOptions')
@@ -126,10 +124,11 @@ class Search {
    * @return {Promise} returns api call as a Promise
   */
   static makeSearch(constructUrlFromParams) {
-    // eslint-disable-next-line no-unused-vars
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.jsonp(constructUrlFromParams, (data) => {
-        // if (err) reject(err)
+        if (Object.keys(data).length === 0 || !data) {
+          throw new Error('No results, please update query params')
+        }
 
         const { numFound, docs } = data.response
 
@@ -168,39 +167,37 @@ class Search {
   */
   metaSearch(identifier) {
     const url = `${this.metaBaseUrl}${identifier}`
-    return new Promise((resolve, reject) => {
-      superagent
-        .get(url).use(jsonp({
-          timeout: 3000,
-        })).end((err, response) => {
-          // handle errors
-          if (err) reject(err)
+    return new Promise((resolve) => {
+      this.constructor.jsonp(url, (data) => {
+        if (Object.keys(data).length === 0 || !data) {
+          throw new Error('No results, please update query params')
+        }
 
-          const {
-            files,
-            server,
-            dir,
-            metadata,
-            reviews,
-          } = response.body
+        const {
+          files,
+          server,
+          dir,
+          metadata,
+          reviews,
+        } = data
 
-          const responseObject = {
-            metadata,
-            reviews,
-            files: [],
+        const responseObject = {
+          metadata,
+          reviews,
+          files: [],
+        }
+
+        Object.keys(files).forEach((key) => {
+          const { format, name } = files[key]
+          if (format !== 'Metadata' && format !== 'JSON') {
+            responseObject.files.push({
+              format,
+              link: `https://${server}${dir}/${name}`,
+            })
           }
-
-          Object.keys(files).forEach((key) => {
-            const { format, name } = files[key]
-            if (format !== 'Metadata' && format !== 'JSON') {
-              responseObject.files.push({
-                format,
-                link: `https://${server}${dir}/${name}`,
-              })
-            }
-          })
-          resolve(responseObject)
         })
+        resolve(responseObject)
+      })
     })
   }
 }
