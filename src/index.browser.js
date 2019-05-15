@@ -1,5 +1,6 @@
 const { archiveSearch } = require('./lib/Search')
 
+console.log(archiveSearch)
 const options = {
   searchBy: 'creator',
   fields: [
