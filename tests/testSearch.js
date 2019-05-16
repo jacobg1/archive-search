@@ -94,6 +94,9 @@ describe('Search', () => {
     })
   })
   describe('metaSearch', () => {
+    jsdom({
+      url: 'http://localhost',
+    })
     const testId = 'gd1967-xx-xx.sbd.studio.81259.flac16'
 
     it('should be called once', () => {
@@ -106,9 +109,9 @@ describe('Search', () => {
         expect(result).to.be.an('object')
       })
     })
-    it('object should have keys: metadata, reviews, files', async () => {
+    it('object should have keys: metadata, reviews, files', () => {
       const objectProperties = ['metadata', 'reviews', 'files']
-      await archiveSearch.metaSearch(testId).then((result) => {
+      archiveSearch.metaSearch(testId).then((result) => {
         Object.keys(result).forEach((item) => {
           expect(objectProperties).to.include(item)
         })
