@@ -113,6 +113,10 @@ class Search {
     // create script and append it to document
     const script = document.createElement('script')
     script.src = `${url + (url.indexOf('?') >= 0 ? '&' : '?')}callback=${callbackName}`
+    // handle request errors
+    script.onerror = () => {
+      throw new Error('Bad request, check query params')
+    }
     document.body.appendChild(script)
   }
 
@@ -126,10 +130,6 @@ class Search {
   static makeSearch(constructUrlFromParams) {
     return new Promise((resolve) => {
       this.jsonp(constructUrlFromParams, (data) => {
-        if (Object.keys(data).length === 0 || !data) {
-          throw new Error('No results, please update query params')
-        }
-
         const { numFound, docs } = data.response
 
         // if number found is zero throw error
@@ -169,10 +169,6 @@ class Search {
     const url = `${this.metaBaseUrl}${identifier}`
     return new Promise((resolve) => {
       this.constructor.jsonp(url, (data) => {
-        if (Object.keys(data).length === 0 || !data) {
-          throw new Error('No results, please update query params')
-        }
-
         const {
           files,
           server,
