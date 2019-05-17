@@ -5,19 +5,19 @@ Small, zero dependency library to search through archive.org's api
 ## Installing
 
 with npm:
-``` 
+```bash 
 $ npm install archive-search 
 ```
 
 through cdn: 
-```
+```html
 <script src="https://unpkg.com/archive-search/dist/search.browser.js"></script>
  ```
 
 ## Including
 
 node:
-``` 
+```js 
 const { archiveSearch } = require('archive-search')
 ```
 
