@@ -1,3 +1,3 @@
 lib/
-dist/
+# dist/
 index.browser.js
