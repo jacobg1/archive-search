@@ -10,10 +10,8 @@
     "start": "webpack --mode=development",
     "build": "webpack --mode=production",
     "browser": "webpack --mode=development --config webpack.config.browser.js",
-    "browser:dev": "webpack --mode=development --watch --config webpack.config.browser.js",
-    "node": "node src/index.node.js",
-    "node:dev": "webpack --mode=development --watch --config webpack.config.node.js",
-    "dev": "concurrently --kill-others \"npm run browser:dev\" \"npm run node:dev\""
+    "browser:watch": "webpack --mode=development --watch --config webpack.config.browser.js",
+    "node": "node src/index.js"
   },
   "browser": {
     "./dist/search.node.js": "./dist/search.js"
@@ -51,9 +49,5 @@
     "webpack-cli": "^3.3.0",
     "webpack-node-externals": "^1.7.2"
   },
-  "dependencies": {
-    "jsonp": "^0.2.1",
-    "superagent": "^4.1.0",
-    "superagent-jsonp": "^0.2.1"
-  }
+  "dependencies": {}
 }
