@@ -46,7 +46,7 @@ Fine tune search by passing in options object into the search function.  Full li
 
 ```js
 const options = {
-  searchBy: 'title', // which field to seach by (optional)
+  searchBy: 'title', // which field to seach by (optional, defaults to creator)
   fields: [ // which fields to return from search (required)
     'avg_rating',
     'backup_location',
@@ -92,11 +92,11 @@ const options = {
     'week',
     'year'
   ],
-  max: 500,  // the max results to return from search (optional)
-  sortBy: { // which fields to sort by and whether to sort ascending or descending (optional)
+  max: 500,  // the max results to return from search (optional, defaults to 50)
+  sortBy: { // which fields to sort by and whether to sort ascending or descending (optional, can specify up to three)
     year: 'asc',
-    downloads: 'asc',
-    title: 'desc'
+    date: 'asc',
+    downloads: 'desc'
   },  
 }
 
