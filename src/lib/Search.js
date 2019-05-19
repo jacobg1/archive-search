@@ -26,17 +26,16 @@ class Search {
       throw new TypeError('setOptions() expected an Object')
     }
 
-    const invalidOptionsError = 'Invalid syntax for options. Ex: {fields: [...fields], max: 100(optional)}'
     const possibleOptions = ['fields', 'max', 'sortBy', 'searchBy']
 
     Object.keys(options).forEach((option) => {
       if (possibleOptions.indexOf(option) === -1) {
-        throw new Error(`${invalidOptionsError} check field: ${option}`)
+        throw new Error(`Invalid syntax for options check field: ${option}`)
       }
     })
 
     if (!checkType.isArray(options.fields)) {
-      throw new Error(invalidOptionsError)
+      throw new Error('Invalid syntax for options')
     }
 
     // add identifier field as this is needed for second api call
