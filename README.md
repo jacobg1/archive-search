@@ -21,7 +21,7 @@ node:
 const { archiveSearch } = require('archive-search')
 ```
 
-react:
+ES6:
 ```js
 import { archiveSearch } from 'archive-search' 
 ```
@@ -36,10 +36,9 @@ var mySearchClass = new archiveSearch.Search()
 search() - returns a list of search results. Each result has a unique identifier that can be passed into the metaSearch function to obtain an individual collection's data.
 
 ```js
-archiveSearch.search('Your search term').then((result) => {
-  console.log(result)
-})
-.catch((e) => console.log(e))
+archiveSearch.search('Your search term')
+  .then(result => console.log(result))
+  .catch((e) => console.log(e))
 ```
 
 ### Options
@@ -101,18 +100,16 @@ const options = {
   },  
 }
 
-archiveSearch.search('Your search term', options).then((result) => {
-  console.log(result)
-})
-.catch((e) => console.log(e))
+archiveSearch.search('Your search term', options)
+  .then(result => console.log(result))
+  .catch(e => console.log(e))
 
 ```
 metaSearch() - pass in an identifier from the main search to access an individual collection.
 
 ```js
 const identifier = 'gd1967-xx-xx.sbd.studio.81259.flac16'
-archiveSearch.metaSearch(identifier).then((result) => {
-  console.log(result)
-})
-.catch((e) => console.log(e))
+archiveSearch.metaSearch(identifier)
+  .then(result => console.log(result))
+  .catch(e => console.log(e))
 ```
