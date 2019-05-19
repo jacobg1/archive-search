@@ -42,12 +42,12 @@ archiveSearch.search('Your search term')
 ```
 
 ### Options
-Default search options can be overridden by passing in an options object into the search function.  Full list of possible fields is shown below and can also be found here: <https://archive.org/advancedsearch.php>.
+Fine tune search by passing in options object into the search function.  Full list of possible fields is shown below and can also be found here: <https://archive.org/advancedsearch.php>. Note: must specify fields to return, other options are optional.
 
 ```js
 const options = {
-  searchBy: 'title', // which field to seach by
-  fields: [ // which fields to return from search
+  searchBy: 'title', // which field to seach by (optional)
+  fields: [ // which fields to return from search (required)
     'avg_rating',
     'backup_location',
     'btih',
@@ -92,8 +92,8 @@ const options = {
     'week',
     'year'
   ],
-  max: 500,  // the max results to return from search
-  sortBy: { // which fields to sort by and whether to sort ascending or descending
+  max: 500,  // the max results to return from search (optional)
+  sortBy: { // which fields to sort by and whether to sort ascending or descending (optional)
     year: 'asc',
     downloads: 'asc',
     title: 'desc'
