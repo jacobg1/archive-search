@@ -5,7 +5,7 @@ const defaultOptions = require('../helpers/defaultOptions')
 
 class Search {
   /**
-   * Class with methods to search archive.org's api
+   * Class with methods to search archive.org's api (browser version)
    * @constructor - initializes defaults
    */
   constructor() {
@@ -154,7 +154,10 @@ class Search {
     // if user passes in options object, add options to search url
     if (options.length !== 0) this.setOptions(options)
 
-    const constructUrlFromParams = this.constructSearchUrl(this.searchBy, searchTerm)
+    // format search input
+    const formatSearchTerm = searchTerm.replace(/\s+/g, '+').toLowerCase()
+
+    const constructUrlFromParams = this.constructSearchUrl(this.searchBy, formatSearchTerm)
 
     // return Promise from makeSearch()
     return this.constructor.makeSearch(constructUrlFromParams)
