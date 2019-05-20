@@ -1,6 +1,6 @@
 {
   "name": "archive-search-lib",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "search helper for archive.orgs api",
   "main": "index.js",
   "scripts": {
