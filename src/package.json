@@ -1,6 +1,6 @@
 {
   "name": "archive-search",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Small, zero dependency, Promise based library to search through archive.org's api for the browser and node.",
   "main": "index.js",
   "directories": {
@@ -24,6 +24,7 @@
   ],
   "author": "Jacob Greenwald",
   "license": "ISC",
+  "runkitExampleFilename": "runkit-example.js",
   "bugs": {
     "url": "https://github.com/jacobg1/archive-search-lib/issues"
   },
