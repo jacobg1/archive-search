@@ -1,7 +1,7 @@
 {
   "name": "archive-search-lib",
-  "version": "1.0.3",
-  "description": "Small, zero dependency, Promise based, library to search through archive.org's api, for the browser and node.",
+  "version": "1.0.4",
+  "description": "Small, zero dependency, Promise based library to search through archive.org's api for the browser and node.",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./tests/testSearch.js || exit 0",
