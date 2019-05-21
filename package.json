@@ -1,7 +1,7 @@
 {
   "name": "archive-search-lib",
-  "version": "1.0.2",
-  "description": "search helper for archive.orgs api",
+  "version": "1.0.3",
+  "description": "Small, zero dependency, Promise based, library to search through archive.org's api, for the browser and node.",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./tests/testSearch.js || exit 0",
@@ -21,7 +21,12 @@
     "url": "git+https://github.com/jacobg1/archive-search-lib.git"
   },
   "keywords": [
-    "archive.org"
+    "archive.org",
+    "node",
+    "react",
+    "Promises",
+    "zero dependency",
+    "browser"
   ],
   "author": "Jacob Greenwald",
   "license": "ISC",

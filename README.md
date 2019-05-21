@@ -1,35 +1,41 @@
 ## archive-search
+
 [![npm version](https://badge.fury.io/js/archive-search.svg)](https://badge.fury.io/js/archive-search)
 [![devDependencies Status](https://david-dm.org/jacobg1/archive-search/dev-status.svg)](https://david-dm.org/jacobg1/archive-search?type=dev)
 
-Small, zero dependency library to search through archive.org's api
+Small, zero dependency, Promise based, library to search through archive.org's api, for the browser and node.
 
 ## Installing
 
 with npm:
-```bash 
+
+```bash
 $ npm install archive-search 
 ```
 
 through cdn: 
+
 ```html
 <script src="https://unpkg.com/archive-search/dist/search-browser.js"></script>
- ```
+```
 
 ## Including
 
 node:
-```js 
+
+```js
 const { archiveSearch } = require('archive-search')
 ```
 
 ES6:
+
 ```js
 import { archiveSearch } from 'archive-search' 
 ```
 
 browser:
-```js     
+
+```js
 var mySearchClass = new archiveSearch.Search() 
 ```
 
@@ -44,6 +50,7 @@ archiveSearch.search('Your search term')
 ```
 
 ### Options
+
 Fine tune search by passing in options object into the search function.  Full list of possible fields is shown below and can also be found here: <https://archive.org/advancedsearch.php>. Note: must specify fields to return, other options are optional.
 
 ```js
@@ -104,8 +111,8 @@ const options = {
 archiveSearch.search('Your search term', options)
   .then(result => console.log(result))
   .catch(e => console.log(e))
-
 ```
+
 metaSearch() - pass in an identifier from the main search to access an individual collection.
 
 ```js
