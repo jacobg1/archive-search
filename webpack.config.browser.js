@@ -2,14 +2,13 @@ const path = require('path');
 module.exports = {
 	entry: './src/lib/Search.js',
 	output: {
-		path: path.resolve(__dirname, './src/dist'),
-		filename: 'search-browser.js',
+	path: path.resolve(__dirname, './src/dist'),
+	filename: 'search-browser.min.js',
     library: 'archiveSearch',
     libraryTarget: 'umd',
     umdNamedDefine: true,
     globalObject: "typeof self !== 'undefined' ? self : this"
 	},
-	devtool: 'inline-source-map',
 	module: {
 		rules: [
 			{
