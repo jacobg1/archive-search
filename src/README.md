@@ -17,7 +17,7 @@ $ npm install archive-search
 through cdn: 
 
 ```html
-<script src="https://unpkg.com/archive-search/dist/search-browser.js"></script>
+<script src="https://unpkg.com/archive-search/dist/search-browser.min.js"></script>
 ```
 
 ## Including
