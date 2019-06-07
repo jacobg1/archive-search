@@ -45,7 +45,7 @@ var mySearchClass = new archiveSearch.Search()
 search() - returns a list of search results. Each result has a unique identifier that can be passed into the metaSearch function to obtain an individual collection's data.
 
 ```js
-archiveSearch.search('Your search term')
+archiveSearch.search('Sonny Rollins')
   .then(result => console.log(result))
   .catch((e) => console.log(e))
 ```
