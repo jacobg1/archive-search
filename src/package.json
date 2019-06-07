@@ -6,7 +6,7 @@
   "directories": {
     "lib": "lib"
   },
-  "browser": "./dist/search-browser.js",
+  "browser": "./dist/search-browser.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
