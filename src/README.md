@@ -10,9 +10,11 @@ Small, zero dependency, Promise based, library to search through archive.org's a
 
 with npm:
 
-```bash
-$ npm install archive-search 
-```
+``` $ npm install archive-search ```
+
+with yarn:
+
+``` $ yarn add archive-search ```
 
 through cdn: 
 
