@@ -8,7 +8,7 @@ node_modules/
 .vscode/
 
 # dist folder
-dist/
+# dist/
 index.html
 
 # DS_Store
