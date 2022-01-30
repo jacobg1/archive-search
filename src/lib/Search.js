@@ -184,6 +184,8 @@ class Search {
           const { format, name } = files[key];
           if (format !== "Metadata" && format !== "JSON") {
             responseObject.files.push({
+              ...files[key],
+              name,
               format,
               link: `https://${server}${dir}/${name.replace(/ /g, "%20")}`,
             });
