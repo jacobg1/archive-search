@@ -51,7 +51,7 @@
     "nodemon": "2.0.16",
     "sinon": "^7.3.1",
     "webpack": "5.72.1",
-    "webpack-cli": "^3.3.0",
+    "webpack-cli": "^5.0.1",
     "webpack-node-externals": "^1.7.2"
   }
 }
