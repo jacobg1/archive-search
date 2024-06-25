@@ -1,7 +1,6 @@
 ## archive-search
 
 [![npm version](https://badge.fury.io/js/archive-search.svg)](https://badge.fury.io/js/archive-search)
-[![devDependencies Status](https://david-dm.org/jacobg1/archive-search/dev-status.svg)](https://david-dm.org/jacobg1/archive-search?type=dev)
 
 Small, zero dependency, Promise based, library to search through archive.org's api, for the browser and node.
 
