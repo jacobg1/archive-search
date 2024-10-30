@@ -52,7 +52,7 @@ class Search {
     }
 
     if (max) {
-      this.searchDefaults += `&rows=${max}&page=`;
+      this.searchDefaults += `&rows=${max}&page=1`;
     }
 
     if (searchBy) {
@@ -106,9 +106,7 @@ class Search {
     };
     // create script and append it to document
     const script = document.createElement("script");
-    script.src = `${
-      url + (url.indexOf("?") >= 0 ? "&" : "?")
-    }callback=${callbackName}`;
+    script.src = `${url + (url.indexOf("?") >= 0 ? "&" : "?")}callback=${callbackName}`;
     // handle request errors
     script.onerror = () => {
       throw new Error("Bad request, check query params");
@@ -129,8 +127,7 @@ class Search {
         const { numFound, docs } = data.response;
 
         // if number found is zero throw error
-        if (numFound === 0)
-          throw new Error("no results, please update query params");
+        if (numFound === 0) throw new Error("no results, please update query params");
 
         resolve(docs);
       });
@@ -154,10 +151,9 @@ class Search {
     // format search input
     const formatSearchTerm = searchTerm.replace(/\s+/g, "+").toLowerCase();
 
-    const constructUrlFromParams = this.constructSearchUrl(
-      this.searchBy,
-      formatSearchTerm
-    );
+    const constructUrlFromParams = this.constructSearchUrl(this.searchBy, formatSearchTerm);
+
+    console.log("constructUrlFromParams", constructUrlFromParams);
 
     // return Promise from makeSearch()
     return this.constructor.makeSearch(constructUrlFromParams);

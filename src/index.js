@@ -52,7 +52,7 @@ class Search {
     }
 
     if (max) {
-      this.searchDefaults += `&rows=${max}&page=`;
+      this.searchDefaults += `&rows=${max}&page=1`;
     }
 
     if (searchBy) {
@@ -107,8 +107,7 @@ class Search {
             const parsed = JSON.parse(body.join(""));
             const { response, numFound } = parsed;
 
-            if (numFound === 0)
-              throw new Error("no results, please update query params");
+            if (numFound === 0) throw new Error("no results, please update query params");
 
             resolve(response);
           });
@@ -134,10 +133,7 @@ class Search {
     // format search input
     const formatSearchTerm = searchTerm.replace(/\s+/g, "+").toLowerCase();
 
-    const constructUrlFromParams = this.constructSearchUrl(
-      this.searchBy,
-      formatSearchTerm
-    );
+    const constructUrlFromParams = this.constructSearchUrl(this.searchBy, formatSearchTerm);
 
     // return Promise from makeSearch()
     return this.constructor.makeSearch(constructUrlFromParams);
