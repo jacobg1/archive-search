@@ -40,8 +40,8 @@
     "@babel/preset-env": "^7.29.2",
     "babel-loader": "^10.1.1",
     "chai": "^6.2.2",
-    "eslint": "^10.1.0",
-    "jsdom": "29.0.1",
+    "eslint": "^10.2.0",
+    "jsdom": "29.0.2",
     "jsdom-global": "3.0.2",
     "mocha": "^11.7.5",
     "nodemon": "^3.1.14",
@@ -51,7 +51,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "overrides": {
-    "serialize-javascript": "7.0.4",
+    "serialize-javascript": "7.0.5",
     "diff": "8.0.3"
   }
 }
